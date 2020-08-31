@@ -11,6 +11,8 @@ from Sorting import insertionsort  as InsSort
 from Sorting import shellsort as shell
 from Sorting import selectionsort as seSort
 from time import process_time 
+from Sorting import insertionsort  as InsSort
+
 
 
 
@@ -129,6 +131,8 @@ def PromedioPeliculasBuenas(lst1: list)-> float:
     return proBuenas
     
 def loadCSVFile1 (file, lst, sep=";")->list:
+
+def loadCSVFile (file, lst, sep=";")->list:
     """
     Carga un archivo csv a una lista
     Args:
@@ -160,9 +164,15 @@ def loadCSVFile1 (file, lst, sep=";")->list:
     
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+     
+
+    #for i in range (0,len(lst)-1,1):
+    #    print (lst[i])
+    input ("Ya se cargo el archivo, Clic para continuar")
     return lst
 
 def peliculasBuenasDirector(lst1: list, lst2:list,  director:str)-> None:
+
 
     nRegistros= len(lst1)
     print ("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")   
@@ -181,11 +191,53 @@ def peliculasBuenasDirector(lst1: list, lst2:list,  director:str)-> None:
         if (float(lst1[i]['vote_average']) >= 6) and (lst2[i]['director_name'] == director):
             pelBuenasDirector+=1
             proBuenas= proBuenas + float(lst1[i]['vote_average'])
+
+def printMenu():
+    """
+    Imprime el menu de opciones
+    """
+ 
+    print("\n**************************************************************************************")
+    print("\n Bienvenidos a la consola del RETO 1           ***** EXPLORANDO LAMAGIA DEL CINE *****")
+    print("\n**************************************************************************************")
+    print ("CARGA DE DATOS")
+    print("     (1) Lab 0 - Cargar Datos de Archivos Large ")
+    print("     (2) Lab 0 - Cargar Datos de Archivos Small ")
+    print("     (3) Lab 0 - Cargar cualquier archivo por nombre")
+    print ("")
+    print ("REQUERIMIENTO 2 - Crear Ranking de peliculas")
+    print("     (4) Lab 1 - Ordenar por Vote Count Ascendente")
+    print("     (5) Lab 1 - Ordenar por Vote Count Descendente")
+    print("     (6) Lab 1 - Ordenar por Vote Average Ascendente")
+    print("     (7) Lab 1 - Ordenar por Vote Average Descendente")
+    print("     (8) Lab 1 - The Best Movies")
+    print("     (9) Lab 1 - The Best Worst")
+    print ("")
+    print ("REQUERIMIENTO 3 - Conocer un director")
+    print("     (10) Lab 1 - Listar las peliculas de un director")
+    print("     (11) Lab 1 - numero de peliculas del director")
+    print("     (12) Lab 1 - promediode la calificacion de las peliculas del director")
+    print ("")
+    
+    print("     0- Salir")
+
+"""   De aqui en adelante  procedimientos para el Lab 0"""
+    
+def peliculasBuenas(lst1: list)-> int:
+    #print(lst1)
+    print("Aqui estoy ")
+    nRegistros= len(lst1)
+    pelBuenas=0
+    for i in range (0, nRegistros, 1):
+        if (float(lst1[i]['vote_average']) >= 6):
+            pelBuenas+=1
+
             
         #print(lst1[i]['vote_average'])
         #pelBuenas=pelBuenas+ float(lst1[i]['vote_average'])
     #print(pelBuenas)    
     #input("Click para continuar")
+
     if pelBuenasDirector != 0:
         proBuenas= proBuenas/pelBuenasDirector
         respuesta=(pelBuenasDirector, proBuenas)
@@ -293,6 +345,99 @@ def buscarMoviesWorst (lista2:list,cantidad:int)->None:
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     input ("Dar clic para continuar...")
 
+   
+    return pelBuenas
+
+def PromedioPeliculasBuenas(lst1: list)-> float:
+    #print(lst1)
+    print("Aqui estoy ")
+    nRegistros= len(lst1)
+    pelBuenas=0
+    proBuenas=0.0
+    for i in range (0, nRegistros, 1):
+        if (float(lst1[i]['vote_average']) >= 6):
+            pelBuenas+=1
+            proBuenas= proBuenas + float(lst1[i]['vote_average'])
+        #print(lst1[i]['vote_average'])
+        #pelBuenas=pelBuenas+ float(lst1[i]['vote_average'])
+    #print(pelBuenas)    
+    #input("Click para continuar")
+    proBuenas=proBuenas/pelBuenas
+    return proBuenas
+
+def peliculasBuenasDirector(lst1: list, lst2:list,  director:str)-> None:
+    #print(lst1)
+    print("Aqui estoy ")
+    nRegistros= len(lst1)
+    pelBuenasDirector=0
+    proBuenas=0.0
+    NuPeliculas=0
+    for i in range (0, nRegistros, 1):
+        if ( lst2[i]['director_name'] == director):
+            NuPeliculas= NuPeliculas+1
+        if (float(lst1[i]['vote_average']) >= 6) and (lst2[i]['director_name'] == director):
+            pelBuenasDirector+=1
+            proBuenas= proBuenas + float(lst1[i]['vote_average'])
+            
+        #print(lst1[i]['vote_average'])
+        #pelBuenas=pelBuenas+ float(lst1[i]['vote_average'])
+    #print(pelBuenas)    
+    #input("Click para continuar")
+    if pelBuenasDirector != 0:
+        proBuenas= proBuenas/pelBuenasDirector
+        respuesta=(pelBuenasDirector, proBuenas)
+    print("El numero de peliculas del director " , director , " son: ", NuPeliculas ,"de las cuales ", pelBuenasDirector, "son buenas. Con un promedio de: ", round(proBuenas,2)) 
+    input ("Clic para cotinuar")
+  #  return respuesta
+
+    """   De aqui en adelante debemos desarrollar los procedimientos para el Lab 1"""
+  
+
+def countElementsFilteredByColumn(criteria, column, lst):
+    """
+    Retorna cuantos elementos coinciden con un criterio para una columna dada  
+    Args:
+        criteria:: str
+            Critero sobre el cual se va a contar la cantidad de apariciones
+        column
+            Columna del arreglo sobre la cual se debe realizar el conteo
+        list
+            Lista en la cual se realizará el conteo, debe estar inicializada
+    Return:
+        counter :: int
+            la cantidad de veces ue aparece un elemento con el criterio definido
+    """
+    if lst['size']==0:
+        print("La lista esta vacía")  
+        return 0
+    else:
+        t1_start = process_time() #tiempo inicial
+        counter=0
+        iterator = it.newIterator(lst)
+        while  it.hasNext(iterator):
+            element = it.next(iterator)
+            if criteria.lower() in element[column].lower(): #filtrar por palabra clave 
+                counter+=1           
+        t1_stop = process_time() #tiempo final
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    return counter
+
+def countElementsByCriteria(criteria, column, lst):
+    """
+    Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
+    """
+    return 0
+
+
+
+def iSort (lst:list, orden:str)->list: 
+    
+    input ("Vamos a proceder a ordenar ascendentemente usando el metodo Insertion Sort, esto puede tomar algunos segundos o minutos. Clic para continuar")
+    listaOrdenada = []
+    listaOrdenada=InsSort.insertionSort (lst, orden)
+  
+   
+    return listaOrdenada
 
 def main():
     """
@@ -302,14 +447,22 @@ def main():
     Args: None
     Return: None 
     """
+
     lista1 = []  # se require usar lista definida peliculas
     lista2 = []  # se require usar lista definida directores casting
     lista3 = []   # se require usar lista definida books
+
+    lista1 = []  # se require usar lista definida
+    lista2 = []  # se require usar lista definida
+    lista3 = []   # se require usar lista definida
+    """
+
     while True:
         printMenu() #imprimir el menu de opciones en consola
         inputs =input('Seleccione una opción para continuar ?  ') #leer opción ingresada
         print ("Usted selecciono: ", inputs)
         if len(inputs)>0:
+
             if int(inputs)==1: #opcion 1
                 lista1=loadCSVFile1("Data/theMoviesdb/MoviesDetailsCleaned-large.csv", lista1) 
                 print("Datos cargados de Movies Large, ",len(lista1)," elementos cargados")
@@ -522,6 +675,96 @@ def main():
             elif int(inputs)==0: #opcion 0, salir
                 sys.exit(0)  
 
+
+            if int(inputs[0])==1: #opcion 1
+                lista = loadCSVFile("Data/test.csv") #llamar funcion cargar datos
+                print("Datos cargados, ",lista['size']," elementos cargados")
+
+            elif int(inputs[0])==2: #opcion 2
+                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                    print("La lista esta vacía")    
+
+                else: print("La lista tiene ",lista['size']," elementos")
+
+            elif int(inputs[0])==3: #opcion 3
+                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                    print("La lista esta vacía")
+                else:   
+                    criteria =input('Ingrese el criterio de búsqueda\n')
+                    counter=countElementsFilteredByColumn(criteria, "nombre", lista) #filtrar una columna por criterio  
+                    print("Coinciden ",counter," elementos con el crtierio: ", criteria  )
+
+            elif int(inputs[0])==4: #opcion 4
+                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                    print("La lista esta vacía")
+                else:
+                    criteria =input('Ingrese el criterio de búsqueda\n')
+                    counter=countElementsByCriteria(criteria,0,lista)
+                    print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
+            elif int(inputs[0])==0: #opcion 0, salir
+                sys.exit(0)
+        """    
+    while True:
+        printMenu() #imprimir el menu de opciones en consola
+        inputs =input('Seleccione una opción para continuar:  ') #leer opción ingresada
+        print ("Usted selecciono: ", inputs)
+        if len(inputs)>0:
+            if int(inputs)==1: #opcion 1
+                lista1=loadCSVFile("Data/theMoviesdb/MoviesDetailsCleaned-large.csv", lista1) 
+                print("Datos cargados de Movies Large, ",lista1['size']," elementos cargados")
                 
+                lista2=loadCSVFile("Data/theMoviesdb/MoviesCastingRaw-large.csv", lista2 ) 
+                print("Datos cargados de Casting Large, ",lista2['size']," elementos cargados")
+                input ("Clic para cotinuar...")
+
+            elif int(inputs)==2: #opcion 2
+                lista1=loadCSVFile("Data/theMoviesdb/MoviesDetailsCleaned-small.csv", lista1) 
+                print("Datos cargados de Movies Small, ",len(lista1)," elementos cargados")
+                lista2=loadCSVFile("Data/theMoviesdb/MoviesCastingRaw-small.csv", lista2) 
+                print("Datos cargados de Casting Small, ",len(lista2)," elementos cargados")
+                input ("Clic para cotinuar")
+            
+            elif int(inputs)==3: #opcion 3
+                
+                input ("Clic para continuar")
+                fileToLoad = input ("Digite el nombre del archivo [ ejemplo: Data/GoodReads/books.csv ] : ")
+                lista1=loadCSVFile(fileToLoad) 
+                print("Datos cargados del archivo [",fileToLoad, " ]: ", lista1['size'])
+                
+                input ("Clic para cotinuar")
+
+            elif int(inputs)==4: #opcion 4
+                 a="a"
+                 #print (lista1)
+                 #input ("Clic para avanzar")
+                 lista3=iSort (lista1, a)
+                 print  ("Se ha ordenado la lista")
+
+            elif int(inputs)==5: #opcion 5
+                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                    print("La lista esta vacía")
+                else:   
+                    criteria =input('Ingrese el criterio de búsqueda\n')
+                    counter=countElementsFilteredByColumn(criteria, "nombre", lista) #filtrar una columna por criterio  
+                    print("Coinciden ",counter," elementos con el crtierio: ", criteria  )
+            elif int(inputs)==6: #opcion 6
+                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                    print("La lista esta vacía")
+                else:
+                    criteria =input('Ingrese el criterio de búsqueda\n')
+                    counter=countElementsByCriteria(criteria,0,lista)
+                    print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
+            elif int(inputs)==7: #opcion 7 
+                input ("En construccion....Clic para cotinuar")
+            elif int(inputs)==8: #opcion 8
+                input ("En construccion....Clic para cotinuar")
+            elif int(inputs)==9: #opcion 9
+                input ("En construccion....Clic para cotinuar")
+
+            elif int(inputs)==0: #opcion 0, salir
+                sys.exit(0)  
+
+            
+
 if __name__ == "__main__":
     main()
